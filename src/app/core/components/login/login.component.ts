@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   invalidLogin = false;
   returnUrl: string;
 
-  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService) {}
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit() {
     // reset login status
@@ -81,8 +81,8 @@ export class LoginComponent implements OnInit {
     return username.hasError('required')
       ? 'Required'
       : username.hasError('maxlength')
-      ? 'Max Length 100 characters'
-      : '';
+        ? 'Max Length 100 characters'
+        : '';
   }
 
   getPasswordErrorMessage() {
@@ -91,7 +91,7 @@ export class LoginComponent implements OnInit {
     return password.hasError('required')
       ? 'Required'
       : password.hasError('maxlength')
-      ?  'Max Length 100 characters'
-      : '';
+        ? 'Max Length 100 characters'
+        : '';
   }
 }
