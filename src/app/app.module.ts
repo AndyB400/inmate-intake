@@ -7,8 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CoreModule } from 'core/core.module';
 import { HomeModule } from 'home/home.module';
+import { MaterialModule } from 'shared/material.module';
 import { SharedModule } from 'shared/shared.module';
-
 
 @NgModule({
   declarations: [
@@ -20,6 +20,7 @@ import { SharedModule } from 'shared/shared.module';
     BrowserModule,
     CoreModule,
     HomeModule,
+    MaterialModule,
     SharedModule
   ],
   providers: [],
