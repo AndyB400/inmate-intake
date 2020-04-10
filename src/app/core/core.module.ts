@@ -1,6 +1,7 @@
 import { NgModule, SkipSelf, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { LoginComponent, UnauthorisedComponent } from './components';
 import { AuthService, EnvironmentService } from './services';
@@ -8,7 +9,7 @@ import { MaterialModule } from 'shared/material.module';
 
 @NgModule({
   declarations: [LoginComponent, UnauthorisedComponent],
-  imports: [CommonModule, MaterialModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, MaterialModule, ReactiveFormsModule],
   providers: [AuthService, EnvironmentService]
 })
 export class CoreModule {
