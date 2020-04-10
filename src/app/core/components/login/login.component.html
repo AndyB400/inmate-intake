@@ -1,0 +1,40 @@
+<div class="row my-4">
+  <div class="col align-self-center text-center">
+    <h3>HMS Unilink</h3>
+  </div>
+</div>
+
+<div class="row my-4">
+  <div class="col">
+    <form [formGroup]="loginForm" (ngSubmit)="submitForm(loginForm.value)" autocomplete="off">
+      <div class="row justify-content-center">
+        <div class="col col-4">
+          <mat-form-field>
+            <input matInput formControlName="username" placeholder="Username" required />
+            <mat-error *ngIf="loginForm.controls['username'].invalid">{{getUsernameErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col col-4">
+          <mat-form-field>
+            <input matInput type="password" formControlName="password" placeholder="Password" required />
+            <mat-error *ngIf="loginForm.controls['password'].invalid">{{getPasswordErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row mb-3 justify-content-center">
+        <div class="col col-4">
+          <button type="submit" class="btn btn-sm btn-outline-success float-right">Login</button>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col col-4">
+          <div *ngIf="invalidLogin" class="alert alert-warning col" role="alert">
+            Invalid Username or Password
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
