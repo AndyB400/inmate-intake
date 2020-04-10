@@ -17,6 +17,8 @@ const routes: Routes = [
       loadChildren: () => import('./inmate/inmate.module').then(m => m.InmateModule),
       canLoad: [AuthGuard]
   },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 
 @NgModule({
