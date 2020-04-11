@@ -13,7 +13,7 @@ const routes: Routes = [
       canLoad: [AuthGuard]
   },
   {
-      path: 'inmate',
+      path: 'inmates',
       loadChildren: () => import('./inmate/inmate.module').then(m => m.InmateModule),
       canLoad: [AuthGuard]
   },
