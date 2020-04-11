@@ -4,12 +4,12 @@ export interface Inmate {
   id: number;
   firstNames: string;
   lastName: string;
+  dob: Date;
   cellNumber: number;
   intake: Date;
   isActive: boolean;
   locationHistory: LocationHistory[];
 }
-
 
 /* JSON Generator Formula
 
@@ -20,8 +20,8 @@ export interface Inmate {
       id: '{{index()}}',
       firstNames: '{{firstName()}}',
       lastName: '{{surname()}}',
-      cellNumber: '{{integer(1, 400)}}',
       dob: '{{date(new Date(1950, 0, 1), new Date(2000, 0, 1), "YYYY-MM-ddThh:mm:ss Z")}}',
+      cellNumber: '{{integer(1, 400)}}',
       intakeDate: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss Z")}}',
       isActive: '{{bool()}}',
       locationHistory: [
