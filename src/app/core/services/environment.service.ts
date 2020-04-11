@@ -7,10 +7,9 @@ import { environment } from '../../../environments/environment';
 })
 export class EnvironmentService {
   public production: boolean;
-  public authApiUrl: string;
-  public reCAPTCHASiteKey: string;
+  public apiUrl: string;
 
   constructor() {
-    this.authApiUrl = environment.authApiUrl;
+    this.apiUrl = environment.apiUrl;
   }
 }
