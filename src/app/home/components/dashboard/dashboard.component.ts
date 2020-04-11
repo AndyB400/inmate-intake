@@ -5,6 +5,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { finalize } from 'rxjs/operators';
 
+import { Inmate } from 'shared/models';
+import { InmateService } from 'shared/services';
+
 @Component({
   selector: 'ii-dashboard',
   templateUrl: './dashboard.component.html',
