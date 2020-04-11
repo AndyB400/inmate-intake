@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  authApiUrl: 'assets/auth.json'
+  apiUrl: 'http://localhost:3000'
 };
 
 /*
