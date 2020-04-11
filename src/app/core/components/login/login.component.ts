@@ -28,11 +28,7 @@ export class LoginComponent implements OnInit {
 
     // Get the query params
     this.route.queryParams.subscribe(params => {
-      this.returnUrl = params['returnUrl'] || '/home';
-
-      if (this.authService.isAuthenticated()) {
-        this.router.navigate([this.returnUrl]);
-      }
+      this.returnUrl = params.returnUrl || '/home';
     });
 
     this.resetErrorHandling();
@@ -65,12 +61,14 @@ export class LoginComponent implements OnInit {
 
   private login() {
     this.authService.login(this.loginCredential).subscribe(
-      _ => {
-        this.router.navigateByUrl(this.returnUrl);
-      },
-      error => {
-        this.invalidLogin = true;
-        throw error;
+      {
+        next: result => {
+          this.router.navigateByUrl(this.returnUrl);
+        },
+        error: error => {
+          this.invalidLogin = true;
+          throw error;
+        }
       }
     );
   }
