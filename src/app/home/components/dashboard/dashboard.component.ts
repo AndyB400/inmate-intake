@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
   loading = false;
   inmates: Inmate[] = [];
 
-  displayedColumns: string[] = ['name', 'breed', 'customer', 'nextAppointment', 'lastAppointment'];
+  displayedColumns: string[] = ['firstNames', 'lastName', 'age', 'intakeDate', 'cellNumber'];
   dataSource: MatTableDataSource<Inmate>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -25,10 +25,11 @@ export class DashboardComponent implements OnInit {
 
   constructor(private inmateService: InmateService, private snackBar: MatSnackBar) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.loadInmates();
   }
 
-  loadinmates() {
+  loadInmates() {
     this.loading = true;
     this.inmateService.getAll().pipe(
       finalize(() => {
@@ -37,6 +38,7 @@ export class DashboardComponent implements OnInit {
     ).subscribe({
       next: results => {
         this.inmates = results;
+        this.bindTable(this.inmates);
       },
       error: error => {
         console.log(error);
