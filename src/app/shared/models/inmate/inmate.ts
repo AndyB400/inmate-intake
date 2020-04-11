@@ -6,5 +6,6 @@ export interface Inmate {
   lastName: string;
   cellNumber: number;
   intake: Date;
+  isActive: boolean;
   locationHistory: LocationHistory[];
 }
