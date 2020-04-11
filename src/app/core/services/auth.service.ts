@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 
-import { User, LoginCredential } from 'shared/models';
+import { LoginCredential } from 'shared/models';
 import { EnvironmentService } from './environment.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private _currentUser: User;
   private _currentToken: string;
 
   private readonly currentTokenKey = 'currentToken';
-  private readonly currentUserKey = 'currentUser';
 
   currentUserState = new BehaviorSubject(false);
 
@@ -22,46 +20,34 @@ export class AuthService {
 
   login(loginCredential: LoginCredential) {
     return this.http
-      .post<any>(this.environmentService.authApiUrl, {
+      .post<any>(`${this.environmentService.apiUrl}/auth`, {
         username: loginCredential.username,
         password: loginCredential.password,
       })
       .pipe(
-        map((result: any) => {
-          this.setToken(result);
-          this.currentUserState.next(this.isAuthenticated());
+        tap((result: any) => {
+          this.setToken(Object.assign({}, result));
         })
       );
   }
 
   private setToken(result) {
-    if (!result || !result.token || !result.user) {
+    if (!result || !result.token) {
       return;
     }
     // store username and jwt token in session storage to keep user logged in between page refreshes
-    sessionStorage.setItem(this.currentTokenKey, JSON.stringify({ username: result.user.username, token: result.token }));
-    sessionStorage.setItem(this.currentUserKey, JSON.stringify({ username: result.user.username, user: result.user }));
+    sessionStorage.setItem(this.currentTokenKey, JSON.stringify({ token: result.token }));
   }
 
   logout() {
     // remove user from session storage to log user out
-    sessionStorage.removeItem(this.currentUserKey);
     sessionStorage.removeItem(this.currentTokenKey);
-    this._currentUser = null;
     this._currentToken = null;
     this.currentUserState.next(this.isAuthenticated());
   }
 
   isAuthenticated(): boolean {
     return !!sessionStorage.getItem(this.currentTokenKey);
-  }
-
-  get currentUser(): User {
-    if (!this._currentUser && this.isAuthenticated()) {
-      this._currentUser = JSON.parse(sessionStorage.getItem(this.currentUserKey)).user;
-    }
-
-    return this._currentUser;
   }
 
   get currentToken(): string {
