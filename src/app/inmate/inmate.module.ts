@@ -6,9 +6,10 @@ import { MaterialModule } from 'shared/material.module';
 import { SharedModule } from 'shared/shared.module';
 import { InmateResolver } from './inmate.resolver';
 import { InmateRoutingModule } from './inmate-routing.module';
+import { EditComponent } from './components';
 
 @NgModule({
-  declarations: [],
+  declarations: [EditComponent],
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, MaterialModule, SharedModule, InmateRoutingModule
   ],
