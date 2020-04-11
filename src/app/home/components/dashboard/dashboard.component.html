@@ -1,0 +1,58 @@
+<h4 class="mt-2">Dashboard</h4>
+<div class="row">
+  <div class="col-4">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+  <div class="col-8">
+    <button mat-stroked-button color="primary" class="float-right" routerLink="./new"><i class="fas fa-plus pr-1"></i>Add</button>
+  </div>
+</div>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>
+        <span mat-sort-header="name" i18n>Name</span>
+        <span mat-sort-header="ageMonths" style="padding-left: 10px; display: block; float: left;" i18n>Age</span>
+      </th>
+      <td mat-cell *matCellDef="let pet" class="hand" [routerLink]="['./', pet.id]">
+        <div>{{pet.name}}</div>
+        <div class="text-muted" style="padding: 2px 0 2px 10px; font-size: 11px;">
+          <span class="text-muted" *ngIf="pet.ageMonths < 12">{{pet.ageMonths.toFixed(0)}} Months</span>
+          <span *ngIf="pet.ageMonths > 12">{{(pet.ageMonths / 12).toFixed(0)}} Years</span>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="breed">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="breedName"> Breed </th>
+      <td mat-cell *matCellDef="let pet" class="hand" [routerLink]="['./', pet.id]"> {{pet.breedName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="customer">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="customerName"> Customer </th>
+      <td mat-cell *matCellDef="let pet" class="hand" [routerLink]="['./', pet.id]"> {{pet.customer.forename}} {{pet.customer.surname}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nextAppointment">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Next Appointment </th>
+      <td mat-cell *matCellDef="let pet" class="hand" [routerLink]="['./', pet.id]"> {{pet.nextAppointment}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastAppointment">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Appointment </th>
+      <td mat-cell *matCellDef="let pet" class="hand" [routerLink]="['./', pet.id]"> {{pet.lastAppointment}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+    </tr>
+  </table>
+
+  <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
