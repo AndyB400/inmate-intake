@@ -32,27 +32,17 @@ export class InmateService extends BaseService {
       );
   }
 
-  getForCustomer(customerId: string): Observable<Inmate[]> {
-    const url = `${this.inmatesUrl}/customer/${customerId}`;
-
-    return this.http
-      .get<Inmate[]>(url)
-      .pipe(
-        tap(_ => super.log('InmateService.getForCustomer', `fetched Inmate CustomerId=${customerId}`))
-      );
-  }
-
   //////// Save methods //////////
-  saveInmate(inmate: Inmate): Observable<Inmate> {
+  save(inmate: Inmate): Observable<Inmate> {
     if (!inmate.id) {
-      return this.addInmate(inmate);
+      return this.add(inmate);
     }
 
-    return this.updateInmate(inmate);
+    return this.update(inmate);
   }
 
   /** POST: add a new Inmate to the server */
-  private addInmate(inmate: Inmate): Observable<Inmate> {
+  private add(inmate: Inmate): Observable<Inmate> {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
@@ -61,7 +51,7 @@ export class InmateService extends BaseService {
   }
 
   /** PUT: update the Inmate on the server */
-  private updateInmate(inmate: Inmate): Observable<any> {
+  private update(inmate: Inmate): Observable<Inmate> {
     const id = typeof inmate === 'number' ? inmate : inmate.id;
     const url = `${this.inmatesUrl}/${id}`;
     const httpOptions = {
@@ -70,6 +60,6 @@ export class InmateService extends BaseService {
       })
     };
 
-    return this.http.put(url, inmate, httpOptions);
+    return this.http.put<Inmate>(url, inmate, httpOptions);
   }
 }
