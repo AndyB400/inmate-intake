@@ -1,1 +1,83 @@
-<p>edit works!</p>
+<form [formGroup]="form" (ngSubmit)="saveChanges(form.value)">
+  <div class="row my-2">
+    <div class="col">
+      <button mat-button routerLink="/home" color="primary">
+        <i class="fas fa-chevron-left pr-1"></i>Back
+      </button>
+    </div>
+    <div class="col">
+      <button type="submit" mat-stroked-button color="primary" class="float-right">
+        <i class="fas fa-check pr-1"></i>Save</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="card card-top-border-purple">
+        <div class="card-body">
+          <div class="row mb-1">
+            <div class="col">
+              <h4 class="purple">
+                <i class="fas fa-user pr-2"></i>
+                <span *ngIf="inmate.id; else addInmateTitle">Edit Inmate</span>
+                <ng-template #addInmateTitle>Add Inmate</ng-template>
+              </h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+
+              <div class="row">
+                <div class="col">
+                  <mat-form-field>
+                    <input matInput formControlName="firstNames" placeholder="First Names" required />
+                    <mat-error *ngIf="form.controls['firstNames'].invalid">{{getFirstNamesErrorMessage()}}</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input matInput formControlName="lastName" placeholder="Last Name" required />
+                    <mat-error *ngIf="form.controls['lastName'].invalid">{{getLastNameErrorMessage()}}</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-6">
+                  <mat-form-field>
+                    <input matInput formControlName="dob" [min]="dobMin" [max]="dobMax" [matDatepicker]="picker" placeholder="Date of Birth"
+                      (dateInput)="formatAge('input', $event)" (dateChange)="formatAge('change', $event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-6" class="pt-3">
+                  <small class="text-muted" *ngIf="ageYears && ageYears !== 'NaN'">{{ageYears}} Years</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <mat-accordion class="mb-3">
+    <mat-expansion-panel [expanded]="true" class="pnl-border-slate-gray mt-3">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h4 class="pb-1">
+            <i class="fas fa-map-marker-alt mr-2"></i>Location History
+          </h4>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div class="pb-2" *ngIf="inmate.locationHistory.length === 0">No History</div>
+
+      <a [routerLink]="['/appointment/new']" [queryParams]="{ inmateId: inmate.id}" class="slate-gray">
+        <i class="far fa-plus-circle pr-1 mt-2"></i>Add
+      </a>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+
+</form>
