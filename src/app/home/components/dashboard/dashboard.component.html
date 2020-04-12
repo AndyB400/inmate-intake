@@ -6,7 +6,7 @@
     </mat-form-field>
   </div>
   <div class="col-8">
-    <button mat-stroked-button color="primary" class="float-right" routerLink="./inmates/new"><i class="fas fa-plus pr-1"></i>Add</button>
+    <button mat-stroked-button color="primary" class="float-right" routerLink="/inmates/new"><i class="fas fa-plus pr-1"></i>Add</button>
   </div>
 </div>
 
@@ -15,31 +15,31 @@
 
     <ng-container matColumnDef="firstNames">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="firstNames"> First Name </th>
-      <td mat-cell *matCellDef="let inmate" class="hand" [routerLink]="['./inmates', inmate.id]"> {{inmate.firstNames}} </td>
+      <td mat-cell *matCellDef="let inmate" class="hand" [routerLink]="['/inmates', inmate.id]"> {{inmate.firstNames}} </td>
     </ng-container>
 
     <ng-container matColumnDef="lastName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="lastName"> Last Name </th>
-      <td mat-cell *matCellDef="let inmate" class="hand" [routerLink]="['./inmates', inmate.id]"> {{inmate.lastName}} </td>
+      <td mat-cell *matCellDef="let inmate" class="hand" [routerLink]="['/inmates', inmate.id]"> {{inmate.lastName}} </td>
     </ng-container>
 
     <ng-container matColumnDef="age">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="dob"> DOB </th>
-      <td mat-cell *matCellDef="let inmate" class="hand" [routerLink]="['./inmates', inmate.id]"> {{inmate.dob | jsonStringDate}} 
+      <td mat-cell *matCellDef="let inmate" class="hand" [routerLink]="['/inmates', inmate.id]"> {{inmate.dob | jsonStringDate}} 
         <small class="db text-muted pl-2">{{ inmate.dob | ageYearsDate}} years</small>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="intakeDate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="intakeDate"> Intake </th>
-      <td mat-cell *matCellDef="let inmate" class="hand" [routerLink]="['./inmates', inmate.id]"> {{inmate.intakeDate | jsonStringDate}} 
+      <td mat-cell *matCellDef="let inmate" class="hand" [routerLink]="['/inmates', inmate.id]"> {{inmate.intakeDate | jsonStringDate}} 
         <small class="db text-muted pl-2">{{ inmate.intakeDate | ageYearsDate}} years</small>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="cellNumber">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="cellNumber"> Cell </th>
-      <td mat-cell *matCellDef="let inmate" class="hand" [routerLink]="['./inmates', inmate.id]"> {{inmate.cellNumber}} </td>
+      <td mat-cell *matCellDef="let inmate" class="hand" [routerLink]="['/inmates', inmate.id]"> {{inmate.cellNumber}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
