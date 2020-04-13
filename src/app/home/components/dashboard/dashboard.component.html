@@ -3,6 +3,9 @@
   <div class="col-6">
     <mat-form-field>
       <input matInput [(ngModel)]="listFilter" placeholder="Filter">
+      <button mat-button *ngIf="listFilter" matSuffix mat-icon-button aria-label="Clear" (click)="listFilter=''">
+        <i class="fas fa-times text-muted"></i>
+      </button>
     </mat-form-field>
   </div>
   <div class="col-4">
