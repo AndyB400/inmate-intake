@@ -7,9 +7,10 @@ import { SharedModule } from 'shared/shared.module';
 import { InmateResolver } from './inmate.resolver';
 import { InmateRoutingModule } from './inmate-routing.module';
 import { EditComponent } from './components';
+import { LocationHistoriesComponent } from './components/location-histories/location-histories.component';
 
 @NgModule({
-  declarations: [EditComponent],
+  declarations: [EditComponent, LocationHistoriesComponent],
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, MaterialModule, SharedModule, InmateRoutingModule
   ],

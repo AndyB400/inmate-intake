@@ -60,24 +60,6 @@
       </div>
     </div>
   </div>
-
-  <mat-accordion class="mb-3">
-    <mat-expansion-panel [expanded]="true" class="pnl-border-slate-gray mt-3">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <h4 class="pb-1">
-            <i class="fas fa-map-marker-alt mr-2"></i>Location History
-          </h4>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-
-      <div class="pb-2" *ngIf="inmate.locationHistory.length === 0">No History</div>
-
-      <a [routerLink]="['/appointment/new']" [queryParams]="{ inmateId: inmate.id}" class="slate-gray">
-        <i class="far fa-plus-circle pr-1 mt-2"></i>Add
-      </a>
-
-    </mat-expansion-panel>
-  </mat-accordion>
-
 </form>
+
+<ii-location-histories [locationHistories]="inmate.locationHistory"></ii-location-histories>
