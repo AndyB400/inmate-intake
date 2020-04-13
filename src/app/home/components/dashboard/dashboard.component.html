@@ -9,7 +9,7 @@
     </mat-form-field>
   </div>
   <div class="col-4">
-    <mat-slide-toggle class="pt-2"  color="primary" [(ngModel)]='isActiveToggle'>Active Only</mat-slide-toggle>
+    <mat-slide-toggle class="pt-2" color="primary" [(ngModel)]='isActiveToggle'>Active Only</mat-slide-toggle>
   </div>
   <div class="col-2">
     <button mat-stroked-button color="primary" class="float-right" routerLink="/inmates/new"><i class="fas fa-plus pr-1"></i>Add</button>
@@ -21,31 +21,39 @@
 
     <ng-container matColumnDef="firstNames">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="firstNames"> First Name </th>
-      <td mat-cell *matCellDef="let inmate" class="hand" [routerLink]="['/inmates', inmate.id]"> {{inmate.firstNames}} </td>
+      <td mat-cell *matCellDef="let inmate" class="hand" [routerLink]="['/inmates', inmate.id]">
+        <span [ngClass]="{'text-muted': !inmate.isActive}">{{inmate.firstNames}}</span>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="lastName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="lastName"> Last Name </th>
-      <td mat-cell *matCellDef="let inmate" class="hand" [routerLink]="['/inmates', inmate.id]"> {{inmate.lastName}} </td>
+      <td mat-cell *matCellDef="let inmate" class="hand" [routerLink]="['/inmates', inmate.id]">
+        <span [ngClass]="{'text-muted': !inmate.isActive}">{{inmate.lastName}}</span>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="age">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="dob"> DOB </th>
-      <td mat-cell *matCellDef="let inmate" class="hand" [routerLink]="['/inmates', inmate.id]"> {{inmate.dob | jsonStringDate}}
+      <td mat-cell *matCellDef="let inmate" class="hand" [routerLink]="['/inmates', inmate.id]">
+        <span [ngClass]="{'text-muted': !inmate.isActive}">{{inmate.dob | jsonStringDate}}</span>
         <small class="db text-muted pl-2">{{ inmate.dob | ageYearsDate}} years</small>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="intakeDate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="intakeDate"> Intake </th>
-      <td mat-cell *matCellDef="let inmate" class="hand" [routerLink]="['/inmates', inmate.id]"> {{inmate.intakeDate | jsonStringDate}}
+      <td mat-cell *matCellDef="let inmate" class="hand" [routerLink]="['/inmates', inmate.id]">
+        <span [ngClass]="{'text-muted': !inmate.isActive}"> {{inmate.intakeDate | jsonStringDate}}</span>
         <small class="db text-muted pl-2">{{ inmate.intakeDate | ageYearsDate}} years</small>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="cellNumber">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="cellNumber"> Cell </th>
-      <td mat-cell *matCellDef="let inmate" class="hand" [routerLink]="['/inmates', inmate.id]"> {{inmate.cellNumber}} </td>
+      <td mat-cell *matCellDef="let inmate" class="hand" [routerLink]="['/inmates', inmate.id]">
+        <span [ngClass]="{'text-muted': !inmate.isActive}">{{inmate.cellNumber}}</span>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
