@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute, Data } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import * as moment from 'moment';
 
 import { Inmate } from 'shared/models';
 import { InmateService } from 'shared/services';
@@ -44,9 +45,9 @@ export class EditComponent implements OnInit {
         id: undefined,
         firstNames: '',
         lastName: '',
-        dob: new Date('1980-01-01'),
+        dob: moment('1980-01-01'),
         cellNumber: 1,
-        intake: new Date(),
+        intakeDate: moment(),
         isActive: true,
         locationHistory: []
       };
@@ -86,7 +87,7 @@ export class EditComponent implements OnInit {
         Validators.min(this.cellNumberMin),
         Validators.max(this.cellNumberMax)
       ]),
-      intake: new FormControl(inmate.intake, [Validators.required])
+      intake: new FormControl(inmate.intakeDate, [Validators.required])
     });
   }
 
@@ -105,9 +106,9 @@ export class EditComponent implements OnInit {
     this.inmate.firstNames = formValues.firstNames;
     this.inmate.lastName = formValues.lastName;
 
-    this.inmate.dob = formValues.dob;
+    this.inmate.dob = moment(formValues.dob);
     this.inmate.cellNumber = formValues.cellNumber;
-    this.inmate.intake = formValues.intake;
+    this.inmate.intakeDate = moment(formValues.intake);
 
     this.save(this.inmate);
   }
