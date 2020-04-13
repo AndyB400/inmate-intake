@@ -17,7 +17,7 @@
 </div>
 
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" matSort>
+  <table mat-table [dataSource]="dataSource" matSort matSortActive="lastName" matSortDirection="asc" matSortDisableClear>
 
     <ng-container matColumnDef="firstNames">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="firstNames"> First Name </th>
