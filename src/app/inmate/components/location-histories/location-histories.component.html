@@ -8,71 +8,69 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <div class="ii_slidecontainer">
-      <div class="ii_slideitem" *ngIf="!showNewLocationHistoryForm">
+    <div [@slideInOut] *ngIf="!showNewLocationHistoryForm">
+      <div class="row">
+        <div class="col">
+          <mat-slide-toggle class="ml-2 mt-1" (change)="toggleShowRemovedLocationHistories()" color="primary" [(ngModel)]="showRemovedLocationHistory">Show
+            Removed<span style="display:inline" class="badge badge-pill badge-secondary ml-2 mt-0"
+              *ngIf="locationHistories.length > filteredLocationHistories.length">{{locationHistories.length
+                            - filteredLocationHistories.length}}</span>
+          </mat-slide-toggle>
+
+        </div>
+        <div class="col">
+          <button type="button" *ngIf="!showNewLocationHistoryForm" mat-stroked-button color="primary" class="float-right"
+            (click)="toggleNewLocationHistory()">
+            <i class="fas fa-plus pr-1"></i>Add
+          </button>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col ml-3">
+          <div *ngIf="filteredLocationHistories.length !== 0">
+            <div *ngFor="let locationHistory of filteredLocationHistories">
+              {{locationHistory.timestamp | hourMinutePipe:'HH:mm'}} - {{locationHistory.location}}
+
+              <button type="button" class="p-0" mat-icon-button color="primary" (click)="deactivate(locationHistory)">
+                <i class="fas fa-undo-alt p-0 text-muted" title="Un-Delete" *ngIf="!locationHistory.isActive"></i>
+                <i class="far fa-trash-alt text-muted" title="Delete" *ngIf="locationHistory.isActive"></i>
+              </button>
+
+            </div>
+          </div>
+          <div class="text-muted" *ngIf="filteredLocationHistories.length === 0">
+            No Location History
+          </div>
+        </div>
+      </div>
+    </div>
+    <div [@slideInOut] *ngIf="showNewLocationHistoryForm">
+      <form [formGroup]="form" (ngSubmit)="validateNewLocationHistory(form.value, formDirective)" #formDirective="ngForm">
+        <div class="row">
+          <div class="col-sm-6">
+            <mat-form-field>
+              <input matInput formControlName="location" placeholder="Location" />
+              <mat-error *ngIf="form.controls['location'].invalid">{{getLocationErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-6">
+            <ngx-mat-timepicker formControlName="timestamp">
+            </ngx-mat-timepicker>
+          </div>
+        </div>
         <div class="row">
           <div class="col">
-            <mat-slide-toggle class="ml-2 mt-1" (change)="toggleShowRemovedLocationHistories()" [(ngModel)]="showRemovedLocationHistory">Show Removed
-            </mat-slide-toggle>
-            <span class="badge badge-pill badge-secondary ml-2 mt-0" *ngIf="locationHistories.length > filteredLocationHistories.length">{{locationHistories.length
-                            - filteredLocationHistories.length}}</span>
+            <button type="button" *ngIf="showNewLocationHistoryForm" class="pl-0" mat-button color="primary" (click)="cancelChanges()">
+              Cancel
+            </button>
           </div>
           <div class="col">
-            <button type="button" *ngIf="!showNewLocationHistoryForm" class="btn btn-sm btn-09BC8A float-right" (click)="toggleNewLocationHistory()">
-              <i class="fas fa-plus"></i>Add
+            <button type="submit" mat-stroked-button color="primary" *ngIf="showNewLocationHistoryForm" class="float-right">
+              <i class="fas fa-plus pr-1"></i>Add
             </button>
           </div>
         </div>
-        <div class="row mt-3">
-          <div class="col">
-            <div class="container-fluid" *ngIf="filteredLocationHistories.length !== 0">
-              <div *ngFor="let locationHistory of filteredLocationHistories">
-
-                <!-- <phar-storage-condition-tag
-                  [storageCondition]="storageCondition" (removeLocationHistory)="removeLocationHistory($event)"></phar-storage-condition-tag>
-           -->
-              </div>
-
-            </div>
-            <div *ngIf="filteredLocationHistories.length === 0">
-              No Location History
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="ii_slideitem" *ngIf="showNewLocationHistoryForm">
-        <form [formGroup]="form" (ngSubmit)="validateNewLocationHistory(form.value, formDirective)" #formDirective="ngForm">
-          <div class="row">
-            <div class="col-6">
-              <mat-form-field>
-                <input matInput formControlName="location" placeholder="Location" />
-                <mat-error *ngIf="form.controls['location'].invalid">{{getLocationErrorMessage()}}</mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-6">
-              <mat-form-field autocomplete="off">
-                <mat-placeholder></mat-placeholder>
-                <mat-datetimepicker-toggle [for]="datetimePicker" matSuffix></mat-datetimepicker-toggle>
-                <mat-datetimepicker #datetimePicker type="datetime" openOnFocus="false" timeInterval="1"></mat-datetimepicker>
-                <input autocomplete="off" max="lastUpdatedService.getLastUpdated();"
-                  matInput formControlName="receivedOn" [matDatetimepicker]="datetimePicker">
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <button type="button" *ngIf="showNewLocationHistoryForm" class="btn btn-sm btn-link pl-0" (click)="cancelChanges()">
-                Cancel
-              </button>
-            </div>
-            <div class="col">
-              <button type="submit" mat-stroked-button color="primary" *ngIf="showNewLocationHistoryForm" class="float-right">
-                <i class="fas fa-plus pr-1"></i>Add
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
+      </form>
     </div>
 
   </mat-expansion-panel>

@@ -1,20 +1,30 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroupDirective, FormGroup } from '@angular/forms';
+import { FormGroupDirective, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_DATETIME_FORMATS } from '@mat-datetimepicker/core';
 import * as moment from 'moment';
 import { MomentDatetimeAdapter } from '@mat-datetimepicker/moment';
 
 import { LocationHistory } from 'shared/models';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'ii-location-histories',
   templateUrl: './location-histories.component.html',
-  styleUrls: ['./location-histories.component.scss']
+  styleUrls: ['./location-histories.component.scss'],
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({transform: 'translateX(-100%)'}),
+        animate('300ms ease-in-out', style({transform: 'translateX(0%)'}))
+      ]),
+      transition(':leave', [
+        animate('300ms ease-in-out', style({transform: 'translateX(-100%)'}))
+      ])
+    ])
+  ]
 })
 export class LocationHistoriesComponent implements OnInit {
   @Input() locationHistories: LocationHistory[];
-  @Output() add = new EventEmitter<LocationHistory>();
-
   @ViewChild(FormGroupDirective) myForm;
   form: FormGroup;
 
@@ -23,10 +33,30 @@ export class LocationHistoriesComponent implements OnInit {
   filteredLocationHistories: LocationHistory[] = [];
   showRemovedLocationHistory = false;
 
+  // Validation
+  private locationMaxLength = 100;
+
   constructor() { }
 
-
   ngOnInit(): void {
+    if (!this.locationHistories) {
+      this.locationHistories = [];
+    }
+
+    this.filterLocationHistories();
+    this.resetNewLocationHistory();
+
+    this.createForm(this.newLocationHistory);
+  }
+
+  private createForm(locationHistory: LocationHistory) {
+    this.form = new FormGroup({
+      location: new FormControl(locationHistory.location, [
+        Validators.required,
+        Validators.maxLength(this.locationMaxLength)
+      ]),
+      timestamp: new FormControl(locationHistory.timestamp)
+    });
   }
 
   toggleShowRemovedLocationHistories() {
@@ -42,14 +72,11 @@ export class LocationHistoriesComponent implements OnInit {
     }
   }
 
-  removeLocationHistory(locationHistory: LocationHistory) {
-    const index = this.locationHistories.indexOf(locationHistory, 0);
-
-    if (index > -1) {
-      this.locationHistories[index].isActive = !this.locationHistories[index].isActive;
-      this.filterLocationHistories();
-    }
+  deactivate(locationHistory: LocationHistory) {
+    locationHistory.isActive = !locationHistory.isActive;
+    this.filterLocationHistories();
   }
+
   toggleNewLocationHistory() {
     this.form.reset();
     this.resetNewLocationHistory();
@@ -75,12 +102,12 @@ export class LocationHistoriesComponent implements OnInit {
   }
 
   getLocationErrorMessage() {
-    const name = this.form.controls.name;
+    const control = this.form.controls.location;
 
-    return name.hasError('required')
+    return control.hasError('required')
       ? 'Required'
-      : name.hasError('maxlength')
-        ? 'Max 100 Characters'
+      : control.hasError('maxlength')
+        ? `Max ${this.locationMaxLength} Characters`
         : '';
   }
 
@@ -90,6 +117,7 @@ export class LocationHistoriesComponent implements OnInit {
     }
 
     this.newLocationHistory.location = formValues.location;
+    console.log(formValues.timestamp);
     this.newLocationHistory.timestamp = moment(formValues.timestamp);
 
     this.createNewLocationHistory(this.newLocationHistory);

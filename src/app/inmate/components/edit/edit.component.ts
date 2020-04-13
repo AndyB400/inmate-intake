@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { Inmate } from 'shared/models';
 import { InmateService } from 'shared/services';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MAT_DATETIME_FORMATS } from '@mat-datetimepicker/core';
 
 @Component({
   selector: 'ii-edit',
@@ -22,12 +23,12 @@ export class EditComponent implements OnInit {
   // Validation
   private firstNamesMaxLength = 250;
   private lastNameMaxLength = 250;
-  private cellNumberMin = 1;
-  private cellNumberMax = 2000;
-  dobMin: Date;
-  dobMax: Date;
-  intakeMin: Date;
-  intakeMax: Date;
+  cellNumberMin = 1;
+  cellNumberMax = 2000;
+  dobMin: moment.Moment;
+  dobMax: moment.Moment;
+  intakeMin: moment.Moment;
+  intakeMax: moment.Moment;
 
   constructor(
     private router: Router, private route: ActivatedRoute,
@@ -45,9 +46,9 @@ export class EditComponent implements OnInit {
         id: undefined,
         firstNames: '',
         lastName: '',
-        dob: moment('1980-01-01'),
-        cellNumber: 1,
-        intakeDate: moment(),
+        dob: null,
+        cellNumber: null,
+        intakeDate: null,
         isActive: true,
         locationHistory: []
       };
@@ -58,16 +59,12 @@ export class EditComponent implements OnInit {
 
   private setDateValidationValues() {
     // DOB
-    this.dobMin = new Date();
-    this.dobMin.setFullYear(this.dobMin.getFullYear() - 14);
-    this.dobMax = new Date();
-    this.dobMax.setFullYear(this.dobMax.getFullYear() - 100);
+    this.dobMin = moment().subtract(100, 'years');
+    this.dobMax = moment().subtract(14, 'years');
 
     // Intake
-    this.intakeMin = new Date();
-    this.intakeMin.setFullYear(this.intakeMin.getFullYear() - 14);
-    this.intakeMax = new Date();
-    this.intakeMax.setFullYear(this.intakeMax.getFullYear() - 100);
+    this.intakeMin = moment().subtract(10, 'years');
+    this.intakeMax = moment();
   }
 
   private createForm(inmate: Inmate) {
@@ -87,7 +84,7 @@ export class EditComponent implements OnInit {
         Validators.min(this.cellNumberMin),
         Validators.max(this.cellNumberMax)
       ]),
-      intake: new FormControl(inmate.intakeDate, [Validators.required])
+      intakeDate: new FormControl(inmate.intakeDate)
     });
   }
 
@@ -99,7 +96,9 @@ export class EditComponent implements OnInit {
   }
 
   saveChanges(formValues) {
-    if (!this.form.valid) {
+    console.log(this.form);
+
+    if (this.form.invalid) {
       return;
     }
 
