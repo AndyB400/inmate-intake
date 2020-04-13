@@ -25,3 +25,26 @@ body {
 .hand {
   cursor: pointer;
 }
+/* SLIDER */
+.ii_slidecontainer {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+}
+
+.ii_slideitem {
+  margin: 0;
+  min-width: 100%;
+  padding: 3px;
+  width: 100%;
+  flex-wrap: nowrap;
+  transition: transform 300ms ease;
+  -moz-transition: transform 300ms ease;
+  -webkit-transition: transform 300ms, -webkit-transform 300ms;
+}
+
+.ii_slideitem_action {
+  -ms-transform: translateX(-100%); /* IE 9 */
+  -webkit-transform: translateX(-100%); /* Safari */
+  transform: translateX(-100%); /* Standard syntax */
+}
