@@ -1,12 +1,13 @@
 import { LocationHistory } from './location-history';
+import * as moment from 'moment';
 
 export interface Inmate {
   id: number;
   firstNames: string;
   lastName: string;
-  dob: Date;
+  dob: moment.Moment;
   cellNumber: number;
-  intake: Date;
+  intakeDate: moment.Moment;
   isActive: boolean;
   locationHistory: LocationHistory[];
 }
