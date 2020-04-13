@@ -30,7 +30,8 @@ export interface Inmate {
         {
           id: '{{index()}}',
           location: '{{random("In cell", "Cafeteria", "Gym", "Kitchen", "Visitors Room", "Phone", "Infirmary")}}',
-          timestamp: '{{date(new Date(2020, 3, 9), new Date(), "YYYY-MM-ddThh:mm:ss")}}'
+          timestamp: '{{date(new Date(2020, 3, 9), new Date(), "YYYY-MM-ddThh:mm:ss")}}',
+          isActive: '{{bool()}}',
         }
       ]
     }
