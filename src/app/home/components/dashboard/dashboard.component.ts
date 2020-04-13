@@ -16,6 +16,8 @@ import { InmateService } from 'shared/services';
 export class DashboardComponent implements OnInit {
   loading = false;
   inmates: Inmate[] = [];
+  private activeToggle = true;
+  private filterValue = '';
 
   displayedColumns: string[] = ['firstNames', 'lastName', 'age', 'intakeDate', 'cellNumber'];
   dataSource: MatTableDataSource<Inmate>;
@@ -24,6 +26,22 @@ export class DashboardComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private inmateService: InmateService, private snackBar: MatSnackBar) { }
+
+  get isActiveToggle(): boolean {
+    return this.activeToggle;
+  }
+  set isActiveToggle(value: boolean) {
+    this.activeToggle = value;
+    this.applyFilter(this.listFilter, this.isActiveToggle);
+  }
+
+  get listFilter(): string {
+    return this.filterValue;
+  }
+  set listFilter(value: string) {
+    this.filterValue = value;
+    this.applyFilter(this.listFilter, this.isActiveToggle);
+  }
 
   ngOnInit() {
     this.loadInmates();
@@ -38,7 +56,7 @@ export class DashboardComponent implements OnInit {
     ).subscribe({
       next: results => {
         this.inmates = results;
-        this.bindTable(this.inmates);
+        this.applyFilter(this.filterValue, this.isActiveToggle);
       },
       error: error => {
         console.log(error);
@@ -53,13 +71,19 @@ export class DashboardComponent implements OnInit {
     this.dataSource = new MatTableDataSource(inmates);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator.firstPage();
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  applyFilter(filterValue: string, showActive: boolean) {
+    filterValue = filterValue.toLocaleLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+    const filtered = this.inmates.filter((item: Inmate) => {
+      return (item.firstNames.toLocaleLowerCase().indexOf(filterValue) !== -1 ||
+        item.lastName.toLocaleLowerCase().indexOf(filterValue) !== -1  ||
+        item.cellNumber.toString().indexOf(filterValue) !== -1)
+        && (showActive ? item.isActive : true);
+    });
+
+    this.bindTable(filtered);
   }
 }
