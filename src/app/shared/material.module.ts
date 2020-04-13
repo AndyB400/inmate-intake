@@ -10,6 +10,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatetimepickerModule } from '@mat-datetimepicker/core';
+import { MatMomentDatetimeModule } from '@mat-datetimepicker/moment';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -47,6 +49,8 @@ import { MatTreeModule } from '@angular/material/tree';
     MatChipsModule,
     MatStepperModule,
     MatDatepickerModule,
+    MatDatetimepickerModule,
+    MatMomentDatetimeModule,
     MatDialogModule,
     MatDividerModule,
     MatExpansionModule,
