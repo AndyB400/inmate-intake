@@ -84,7 +84,8 @@ export class EditComponent implements OnInit {
         Validators.min(this.cellNumberMin),
         Validators.max(this.cellNumberMax)
       ]),
-      intakeDate: new FormControl(inmate.intakeDate)
+      intakeDate: new FormControl(inmate.intakeDate),
+      isActive: new FormControl(inmate.isActive)
     });
   }
 
@@ -108,6 +109,7 @@ export class EditComponent implements OnInit {
     this.inmate.dob = moment(formValues.dob);
     this.inmate.cellNumber = formValues.cellNumber;
     this.inmate.intakeDate = moment(formValues.intake);
+    this.inmate.isActive = formValues.isActive;
 
     this.save(this.inmate);
   }
