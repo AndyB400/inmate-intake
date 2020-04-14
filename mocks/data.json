@@ -2867,25 +2867,25 @@
           "id": 0,
           "location": "In cell",
           "timestamp": "2020-04-11T04:33:57",
-          "isActive": false
+          "isActive": true
         },
         {
           "id": 1,
           "location": "Gym",
           "timestamp": "2020-04-13T05:08:36",
-          "isActive": false
+          "isActive": true
         },
         {
           "id": 2,
           "location": "Phone",
           "timestamp": "2020-04-10T11:50:17",
-          "isActive": false
+          "isActive": true
         },
         {
           "id": 3,
           "location": "Infirmary",
           "timestamp": "2020-04-13T01:04:03",
-          "isActive": false
+          "isActive": true
         },
         {
           "id": 4,
