@@ -9,10 +9,9 @@ import { SharedModule } from 'shared/shared.module';
 import { InmateResolver } from './inmate.resolver';
 import { InmateRoutingModule } from './inmate-routing.module';
 import { EditComponent, LocationHistoriesComponent } from './components';
-import { HourMinutePipe } from './pipes';
 
 @NgModule({
-  declarations: [EditComponent, LocationHistoriesComponent, HourMinutePipe],
+  declarations: [EditComponent, LocationHistoriesComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -25,6 +24,6 @@ import { HourMinutePipe } from './pipes';
     NgxMatNativeDateModule,
     NgxMatMomentModule
   ],
-  providers: [InmateResolver, HourMinutePipe]
+  providers: [InmateResolver]
 })
 export class InmateModule { }
