@@ -17,7 +17,7 @@
 </div>
 
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" matSort matSortActive="lastName" matSortDirection="asc" matSortDisableClear>
+  <table mat-table [dataSource]="dataSource" matSort matSortActive="lastName" matSortDirection="asc" matSortDisableClear multiTemplateDataRows>
 
     <ng-container matColumnDef="firstNames">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="firstNames"> First Name </th>
@@ -56,9 +56,33 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="locations">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="locations"></th>
+      <td mat-cell *matCellDef="let inmate" class="hand" (click)="expandedInmate = expandedInmate === inmate ? null : inmate">
+        <i class="fas fa-map-marker-alt p-2" *ngIf="getActiveLocationHistory(inmate).length > 0" matTooltip="Show Locations"></i>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let inmate" [attr.colspan]="displayedColumns.length">
+        <div class="inmate-detail" [@detailExpand]="inmate == expandedInmate ? 'expanded' : 'collapsed'">
+
+          <div class="px-3 py-3">
+            <h4 class="mb-0">Location History</h4>
+            <div class="pl-2" *ngFor="let locationHistory of getActiveLocationHistory(inmate)">
+              {{locationHistory.timestamp | hourMinutePipe:'HH:mm'}} - {{locationHistory.location}}
+            </div>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+    <tr mat-row *matRowDef="let inmate; columns: displayedColumns;"
+      class="inmate-row"
+      [class.inmate-expanded-row]="expandedInmate === inmate">
     </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="inmate-detail-row"></tr>
   </table>
 
   <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>

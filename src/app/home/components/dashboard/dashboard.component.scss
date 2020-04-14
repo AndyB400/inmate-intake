@@ -17,3 +17,32 @@ td.mat-cell:last-of-type,
 td.mat-footer-cell:last-of-type {
   padding-right: 0px !important;
 }
+
+.inmate-row td {
+  border-bottom-width: 0;
+}
+
+tr.inmate-detail-row {
+  height: 0;
+}
+
+tr.inmate-row:not(.inmate-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.inmate-row:not(.inmate-expanded-row):active {
+  background: #efefef;
+}
+
+.inmate-row td {
+  border-bottom-width: 0;
+}
+
+.inmate-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.mat-column-location {
+  width: 10px;
+}
