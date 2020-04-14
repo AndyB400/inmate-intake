@@ -20,7 +20,8 @@ The solution uses a package called `concurrently` to run the `json-server` and t
 
 ## MVP Requirement Notes
 
-The models include an IsActive boolean flag to soft delete the entities 
+The models include an IsActive boolean flag to soft delete the entities \
+To display the location history on the dashboard click the location icon on the right to expand the row.
 
 ## Solution Overview
 
@@ -33,4 +34,4 @@ Inmate Module - Responsible for creating and editing inmates
 
 ## JSON-Server and environment.ts
 
-The solution is setup to use JSON-Server to stub API data. The URL of the JSON-Server is stored in the environment.ts file to allow for swapping out for the real API easily in the future.
+The solution is setup to use JSON-Server to stub API data. The URL of the JSON-Server is stored in the environment.ts file to allow for swapping for a real API easily in the future.
