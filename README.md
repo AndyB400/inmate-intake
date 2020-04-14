@@ -18,6 +18,11 @@ npm start
 
 The solution uses a package called `concurrently` to run the `json-server` and the Angular Express server at the same time.
 
+## Login 
+
+Security shouldn't be an after thought so a simple authentication mechanism was implemented to lay the ground work to protect the admin functions.
+Any details can be used on the login page as the solution is set to return a good response from the auth endpoint. 
+
 ## MVP Requirement Notes
 
 The models include an IsActive boolean flag to soft delete the entities \
