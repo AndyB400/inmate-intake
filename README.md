@@ -1,27 +1,36 @@
-# InmateIntake
+# Inmate Intake
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.1.
 
-## Development server
+## Installation
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Install:
 
-## Code scaffolding
+```sh
+npm install
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Running the Solution
 
-## Build
+```sh
+npm start
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+The solution uses a package called `concurrently` to run the `json-server` and the Angular Express erver at the same time.
 
-## Running unit tests
+## MVP Requirement Notes
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+The models include an IsActive boolean flag to soft delete the entities 
 
-## Running end-to-end tests
+## Solution Overview
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+The solution contains 4 main modules 
 
-## Further help
+Core module - Single use components and singleton root services
+Shared Module - Shared components, Services and Pipes
+Home Module - Contains the dashboard component and serves as the landing page for the system
+Inmate Module - Responsible for creating and editing inmates
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## JSON-Server and environment.ts
+
+The solution is setup to use JSON-Server to stub API data. The URL of the JSON-Server is stored in the environment.ts file to allow for swapping out for the real API easily in the future.
