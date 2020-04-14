@@ -16,7 +16,7 @@ npm install
 npm start
 ```
 
-The solution uses a package called `concurrently` to run the `json-server` and the Angular Express erver at the same time.
+The solution uses a package called `concurrently` to run the `json-server` and the Angular Express server at the same time.
 
 ## MVP Requirement Notes
 
@@ -26,9 +26,9 @@ The models include an IsActive boolean flag to soft delete the entities
 
 The solution contains 4 main modules 
 
-Core module - Single use components and singleton root services
-Shared Module - Shared components, Services and Pipes
-Home Module - Contains the dashboard component and serves as the landing page for the system
+Core module - Single use components and singleton root services \
+Shared Module - Shared components, Services and Pipes \
+Home Module - Contains the dashboard component and serves as the landing page for the system \
 Inmate Module - Responsible for creating and editing inmates
 
 ## JSON-Server and environment.ts
