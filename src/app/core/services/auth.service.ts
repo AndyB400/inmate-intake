@@ -8,7 +8,7 @@ import { EnvironmentService } from './environment.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private _currentToken: string;
+  private token: string;
 
   private readonly currentTokenKey = 'currentToken';
 
@@ -42,7 +42,7 @@ export class AuthService {
   logout() {
     // remove user from session storage to log user out
     sessionStorage.removeItem(this.currentTokenKey);
-    this._currentToken = null;
+    this.token = null;
     this.currentUserState.next(this.isAuthenticated());
   }
 
@@ -51,10 +51,10 @@ export class AuthService {
   }
 
   get currentToken(): string {
-    if (!this._currentToken && this.isAuthenticated()) {
-      this._currentToken = JSON.parse(sessionStorage.getItem(this.currentTokenKey)).token;
+    if (!this.token && this.isAuthenticated()) {
+      this.token = JSON.parse(sessionStorage.getItem(this.currentTokenKey)).token;
     }
 
-    return this._currentToken;
+    return this.token;
   }
 }
